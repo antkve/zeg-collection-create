@@ -153,7 +153,10 @@ def update_paths(project, imageset_ids, file, api_url, image_folders):
                             ).encode()
 
     directory_names = [get_path_directory_name(folder) for folder in image_folders]
-    pat = (r"(" + r'|'.join(directory_names) + r")/(.*?)\.(jpg|png|jpeg)").encode()
+    pat = (r"({})/(.*?)({})").format(
+                  r'|'.join(directory_names),
+                  r'|'.join(FILE_TYPES.keys())
+            ).encode()
     updatedfile = re.sub(pat, foldername_replace, file.read())
 
     with open("test.xslt", 'wb') as testfile:

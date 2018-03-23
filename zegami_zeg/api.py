@@ -1,6 +1,5 @@
 # Copyright 2017 Zegami Ltd
 
-
 """API client for talking to Zegami cloud version."""
 
 from __future__ import absolute_import
@@ -96,9 +95,9 @@ class Client(object):
     def update_imageset(self, imageset_id,  info):
         url = "{}v0/project/{}/imagesets/{}".format(
                 self.api_url, self.project, imageset_id)
-        response_json = http.get_json(self.session, url)
-        request_json = response_json.update(info)
-        final_json = http.put_json(self.session, url, request_json)
+        response_json = http.get_json(self.session, url)['imageset']
+        response_json.update(info)
+        final_json = http.put_json(self.session, url, response_json)
         return final_json
 
     def upload_zegx(self, collection_id, file):
